@@ -3,21 +3,26 @@
 // Seleceting elements
 const player0El = document.querySelector(".player--0");
 const player1El = document.querySelector(".player--1");
-let score0El = document.querySelector("#score--0");
-let score1El = document.getElementById("score--1"); //Another way to select element
+
+let score0El = document.getElementById("score--0");
+let score1El = document.getElementById("score--1");
+
 let current0El = document.getElementById("current--0");
 let current1El = document.getElementById("current--1");
+
 const diceEl = document.querySelector(".dice");
 
 const btnNew = document.querySelector(".btn--new");
 const btnRoll = document.querySelector(".btn--roll");
 const btnHold = document.querySelector(".btn--hold");
 
-const scores = [0, 0];
+// initializers
 let currentScore = 0;
 let activePlayer = 0;
+let playing = true;
+diceEl.classList.add("hidden");
 
-// functions
+// Switch Funtion
 const switching = function () {
     currentScore = 0;
     document.getElementById(`current--${activePlayer}`).textContent =
@@ -28,9 +33,7 @@ const switching = function () {
     player1El.classList.toggle("player--active");
 };
 
-// Starting conditions
-diceEl.classList.add("hidden");
-let playing = true;
+// Event Listeners
 
 btnRoll.addEventListener("click", function () {
     if (playing) {
@@ -44,7 +47,7 @@ btnRoll.addEventListener("click", function () {
 
         // 3. Check if its 1 and if so switch to the next player
         if (dice !== 1) {
-            // Add dice to the current number
+            // Adding dice to the current number
             currentScore += dice;
             document.getElementById(`current--${activePlayer}`).textContent =
                 currentScore;
@@ -67,28 +70,23 @@ btnHold.addEventListener("click", function () {
         x += y;
         document.querySelector(`#score--${activePlayer}`).textContent = x;
 
-        if (x < 15) {
-            // set current-score 0
-            // current0El.textContent = 0;
-            // current1El.textContent = 0;
-
-            // change the player
+        if (x < 50) {
             switching();
-
-            // currentScore = 0;
         } else {
             playing = false;
 
             diceEl.classList.add("hidden");
+
             document
                 .querySelector(`.player--${activePlayer}`)
                 .classList.add("player--winner");
-            document.getElementById(`current--${activePlayer}`).textContent =
-                "You Won 🎉";
 
             document
                 .querySelector(`.player--${activePlayer}`)
                 .classList.remove("player--active");
+
+            document.getElementById(`current--${activePlayer}`).textContent =
+                "You Won 🎉";
         }
     }
 });
