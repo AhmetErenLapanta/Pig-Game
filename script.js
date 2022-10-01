@@ -78,11 +78,14 @@ btnHold.addEventListener("click", function () {
             // currentScore = 0;
         } else {
             playing = false;
+
             diceEl.classList.add("hidden");
-            console.log("YOU WON MF!");
             document
                 .querySelector(`.player--${activePlayer}`)
                 .classList.add("player--winner");
+            document.getElementById(`current--${activePlayer}`).textContent =
+                "You Won 🎉";
+
             document
                 .querySelector(`.player--${activePlayer}`)
                 .classList.remove("player--active");
